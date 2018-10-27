@@ -203,7 +203,16 @@
       console.log("Error getting document:", error);
     });
 
-   
+    // $.getJSON('home.json', function (data) {
+    //   console.log(data);
+    // $('#appname').html(data.appname);
+    //   var style = "background: url('images/" + data.slides[0] + "') no-repeat center; background-size: contain;'";
+    //   $('#carousel1').attr('style', style)
+    //   var icon_template = $('#icon_template').html();
+    // var html = ejs.render(icon_template, {categories : data.categories});
+    //   $('#icons').html(html);
+    // });
+  }
   function getCartData() {
     var docRef = db.collection("UI").doc("cart");
     docRef.get().then(function (doc) {
