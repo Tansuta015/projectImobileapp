@@ -64,11 +64,11 @@
 
       <ons-tabbar swipeable position="auto" id="tabbar">
         <ons-tab style="background: rgba(175, 115, 103, 0.651);" page="tab1.html" label="Home" icon="ion-home, material:md-home"
-          badge="7" active>
+          badge="" active>
         </ons-tab>
         <ons-tab style="background:rgba(175, 115, 103, 0.651);" page="tab2.html" label="Cart" icon="fa-shopping-cart" active-icon="fa-shopping-cart">
         </ons-tab>
-        <ons-tab style="background:rgba(175, 115, 103, 0.651);" page="tab3.html" label="All Product" icon="fa-shopping-cart" active-icon="fa-shopping-cart">
+        <ons-tab style="background:rgba(175, 115, 103, 0.651);" page="tab3.html" label="All Product" icon="ion-calendar" active-icon="ion-calendar">
         </ons-tab>
       </ons-tabbar>
     </ons-page>
@@ -177,10 +177,7 @@
           </ons-col>
           <%});%>
         </script>
-
       </ons-row>
-      <ons-button modifier="large" onclick="addNewData();">Add New Data</ons-button>
-
     </ons-page>
   </template>
 
@@ -273,7 +270,7 @@
       getHomeData();
     } else if (event.index == 1) {
       console.log('Cart clicked');
-      getData2cart();
+      getaddtocart();
     } else if (event.index == 2) {
       console.log('All product clicked');
       var name1 = localStorage.getItem('name');
@@ -421,7 +418,7 @@
 
   }
 
-  function getData2cart() {
+  function getaddtocart() {
     console.log('functioncart');
     console.log(dataCart);
     document.getElementById('showDataCart').innerHTML = '';
@@ -443,7 +440,7 @@
   
     function deletecart(numPcart){
     var delDataCart = dataCart.splice(numPcart,1)
-    getData2cart();
+    getaddtocart();
     if(dataCart.length==0){
     $("#Fillbadge").attr('badge', '');
     }else{
