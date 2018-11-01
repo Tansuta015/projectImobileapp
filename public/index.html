@@ -134,7 +134,7 @@
           </div>
           <div class="right">
             <p style="text-align: center; margin: 10px;">
-              <ons-icon style="color: grey" size="30px" icon="md-delete"></ons-icon>
+              <ons-icon style="color: grey" size="30px" icon="md-delete" onclick="deletecart('<%=cartData.title%>')"></ons-icon>
             </p>
           </div>
         </ons-list-item>    
@@ -202,9 +202,9 @@
         <% detail.forEach(function(detail){
           var details = detail.data();
           %>
-    <ons-col width="100" >
+    <ons-col >
       <ons-card >
-            <ons-carousel swipeable auto-scroll overscrollable id="carousel" style="height: 300px;">
+            <ons-carousel swipeable auto-scroll overscrollable id="carousel" style="height:400px">
               <ons-carousel-item id="carousel1" style="background: url('<%= details.photo[0]%>') no-repeat center; background-size: contain;">
               </ons-carousel-item>
               <ons-carousel-item id="carousel2" style="background: url('<%= details.photo[1]%>') no-repeat center; background-size: contain;">
@@ -214,9 +214,6 @@
             </ons-carousel>
 
             <div class="content">
-<!--              
-                <div class="title" style="font-size:18px;" ><%= details.title %></div>
-                  <div ><%= details.price%> ฿</div><br> -->
                   <br>
                   <br>
               <ons-list>
@@ -351,8 +348,6 @@
     console.log(name)
     document.getElementById('tabbar').setActiveTab(2);
     localStorage.setItem('name', name);
-    // var name1 = localStorage.getItem('name');
-    //  getproductData(name1)
   }
 
 
@@ -360,8 +355,6 @@
     localStorage.setItem('id', pid);
     myNavigator.pushPage('tab4.html')
     showdetail()
-    // var name1 = localStorage.getItem('name');
-    //  getproductData(name1)
   }
 
   function showdetail() {
@@ -389,7 +382,7 @@
     localStorage.setItem('items', item);
     var item = filterItems(search, data);
     console.log(item)
-    test(item);
+    show(item);
     document.getElementById('tabbar').setActiveTab(2);
   }
   const data = []
@@ -405,7 +398,7 @@
 
       })
   }
-  function test(title) {
+  function show(title) {
     var allProduct_template = $('#allProduct_template').html();
     var html = ejs.render(allProduct_template, { allProduct: title });
     $('#allProduct').html(html);
@@ -420,6 +413,11 @@
     var retrievedData = localStorage.getItem("quentinTarantino");
     console.log(retrievedData);
     dataCart.push(retrievedData);
+
+    
+  ons.notification.toast('Product added to cart !', {
+    timeout: 2000
+  });
 
   }
 
@@ -436,10 +434,23 @@
 
         $('#showDataCart').append(html);
 
+
       })
 
     })
   }
+ 
+    function deletecart(numPcart){
+    var delDataCart = dataCart.splice(numPcart,1)
+    getData2cart();
+    if(dataCart.length==0){
+    $("#Fillbadge").attr('badge', '');
+    }else{
+    $("#Fillbadge").attr('badge', dataCart.length);
+    }
+    ons.notification.alert('ลบสินค้าแล้ว!');
+  }
+  
 </script>
 
 </html>
