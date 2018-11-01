@@ -439,7 +439,8 @@
 
     })
   }
- 
+
+  
     function deletecart(numPcart){
     var delDataCart = dataCart.splice(numPcart,1)
     getData2cart();
@@ -448,7 +449,7 @@
     }else{
     $("#Fillbadge").attr('badge', dataCart.length);
     }
-    ons.notification.alert('ลบสินค้าแล้ว!');
+    ons.notification.alert('Product deleted!');
   }
   
 </script>
