@@ -63,11 +63,12 @@
       </ons-toolbar>
 
       <ons-tabbar swipeable position="auto" id="tabbar">
-        <ons-tab page="tab1.html" label="Home" icon="ion-home, material:md-home" badge="7" active>
+        <ons-tab style="background: rgba(175, 115, 103, 0.651);" page="tab1.html" label="Home" icon="ion-home, material:md-home"
+          badge="7" active>
         </ons-tab>
-        <ons-tab page="tab2.html" label="Cart" icon="fa-shopping-cart" active-icon="fa-shopping-cart">
+        <ons-tab style="background:rgba(175, 115, 103, 0.651);" page="tab2.html" label="Cart" icon="fa-shopping-cart" active-icon="fa-shopping-cart">
         </ons-tab>
-        <ons-tab page="tab3.html" label="All Product" icon="fa-shopping-cart" active-icon="fa-shopping-cart">
+        <ons-tab style="background:rgba(175, 115, 103, 0.651);" page="tab3.html" label="All Product" icon="fa-shopping-cart" active-icon="fa-shopping-cart">
         </ons-tab>
       </ons-tabbar>
     </ons-page>
@@ -75,9 +76,9 @@
 
   <template id="tab1.html">
     <ons-page id="Tab1">
-        <p style="text-align: center; margin-top: 10px;">
-            <ons-search-input placeholder="Search" onchange="search(this.value)"></ons-search-input>
-          </p>
+      <p style="text-align: center; margin-top: 10px;">
+        <ons-search-input placeholder="Search" onchange="search(this.value)"></ons-search-input>
+      </p>
       <ons-carousel swipeable auto-scroll overscrollable id="carousel" style="height: 300px;">
         <ons-carousel-item id="carousel1" style="background: url('') no-repeat center; background-size: contain;">
         </ons-carousel-item>
@@ -112,7 +113,7 @@
   <template id="tab2.html">
     <ons-page id="Tab2">
       <p>
-        <h5><b>Shopping Cart</b></h5>
+        <h3> Shopping Cart </h3>
       </p>
 
       <div id="showDataCart"></div>
@@ -129,7 +130,7 @@
           </div>
           <div class="center">
             <span class="list-item__title"><%=cartData.title%></span>
-            <span class="list-item__subtitle" style="color: blue"><%=cartData.price%></span>
+            <span class="list-item__subtitle" style="color: blue" size="30px">฿ <%= cartData.price %></span>
           </div>
           <div class="right">
             <p style="text-align: center; margin: 10px;">
@@ -160,7 +161,7 @@
           %>  
           <ons-col width="50%" onclick="detail('<%- item.pid %>')">
             <ons-card>
-              <img src="<%=item.photo%>" alt="Onsen UI" style="width: 100%" alt="Card image">
+              <img src="<%=item.photo[0]%>" alt="Onsen UI" style="width: 100%" alt="Card image">
               <div class="title">
                 <%=item.title%>
               </div>
@@ -185,14 +186,15 @@
 
   <template id="tab4.html">
     <ons-page>
-      <ons-toolbar>
+      <ons-toolbar style="background-color: rosybrown ">
         <div class="left">
-          <ons-back-button>Back</ons-back-button>
-
+          <ons-back-button style="color: wheat">Back</ons-back-button>
         </div>
-        <div class="center">Detail</div>
-
+        <div class="center">Detile</div>
+        </div>
         <div class="center"></div>
+      </ons-toolbar>
+      <div id="detail"></div>
       </ons-toolbar>
       <div id="detail"></div>
       <script id="detail_template" type="text/template">
@@ -202,22 +204,45 @@
           %>
     <ons-col width="100" >
       <ons-card >
-            <img class="" src="<%= details.photo %>" width="99%"height="200px"><br>
             <ons-carousel swipeable auto-scroll overscrollable id="carousel" style="height: 300px;">
-              <ons-carousel-item id="carousel1" style="background: url('<%= details.photo %>') no-repeat center; background-size: contain;">
+              <ons-carousel-item id="carousel1" style="background: url('<%= details.photo[0]%>') no-repeat center; background-size: contain;">
               </ons-carousel-item>
-              <ons-carousel-item id="carousel2" style="background: url('<%= details.photo %>') no-repeat center; background-size: contain;">
+              <ons-carousel-item id="carousel2" style="background: url('<%= details.photo[1]%>') no-repeat center; background-size: contain;">
               </ons-carousel-item>
-              <ons-carousel-item id="carousel3" style="background: url('<%= details.photo %>') no-repeat center; background-size: contain;">
+              <ons-carousel-item id="carousel3" style="background: url('<%= details.photo[2]%>') no-repeat center; background-size: contain;">
               </ons-carousel-item>
             </ons-carousel>
-    <%= details.category %><br>
-    <%= details.title %><br>
-    ฿<%= details.price %>
+
+            <div class="content">
+<!--              
+                <div class="title" style="font-size:18px;" ><%= details.title %></div>
+                  <div ><%= details.price%> ฿</div><br> -->
+                  <br>
+                  <br>
+              <ons-list>
+                
+                <ons-list-header style="background: rgb(255, 147, 126, 0.6);" ><b>Detail product</b></ons-list-header>
+                <ons-list-item>Title :
+                  <div class="brand" style="margin-left:50px;"><%= details.title%></div>
+                </ons-list-item>
+                <ons-list-item>Price :
+                  <div class="brand" style="margin-left:50px;"><%= details.price%></div>
+                </ons-list-item>
+
+                <ons-list-item>Category :
+                  <div class="color" style="margin-left:25px;"><%= details.category%></div>
+                </ons-list-item>
+                
+              </ons-list>
+    
       </ons-col>
      </ons-row>
+     <br>
+    
      <ons-button modifier="large"   onclick="addtocart('<%= details.title %>')">ADD TO CART</ons-button>
      <%});%> 
+     <br>
+     <br>
     </ons-card>
     </script>
     </ons-page>
@@ -244,7 +269,7 @@
 
 <script>
   getHomeData();
-  tatol();
+  total();
   document.addEventListener('prechange', function (event) {
     if (event.index == 0) {
       console.log('Home clicked');
@@ -263,14 +288,11 @@
       else if (name1 != null && items == null) {
         getAllProduct(name1);
       }
-      else if (name1 != null && items == null) { }
-      else if (event.index == 3) { }
+      else if (name1 == null && items != null) { }
+
       localStorage.clear();
     }
   });
-
-
-
 
   function getHomeData() {
 
@@ -344,16 +366,12 @@
 
   function showdetail() {
     var id = localStorage.getItem('id');
-
     db.collection("products").where("pid", "==", id).get()
       .then(function (querySnapshot) {
         console.log(querySnapshot.docs);
         var detail_template = $('#detail_template').html();
-
         var html = ejs.render(detail_template, { detail: querySnapshot.docs });
-
         $('#detail').html(html);
-
       })
       .catch(function (error) {
         console.log("Error getting documents: ", error);
@@ -363,24 +381,23 @@
 
   function search(search) {
     const filterItems = (needle, heystack) => {
-    let query = needle.toLowerCase();
-    return heystack.filter(item => item.data().title.toLowerCase().indexOf(needle) >= 0);
+      let query = needle.toLowerCase();
+      return heystack.filter(item => item.data().title.toLowerCase().indexOf(needle) >= 0);
     }
-    
-    var item = filterItems(search, data);
-    localStorage.setItem('items', item);
+    console.log(filterItems(search, data));
 
+    localStorage.setItem('items', item);
+    var item = filterItems(search, data);
+    console.log(item)
     test(item);
     document.getElementById('tabbar').setActiveTab(2);
   }
-  
   const data = []
 
-  function tatol() {
+  function total() {
     console.log(search);
     db.collection("products").get()
       .then(function (querySnapshot) {
-
         querySnapshot.docs.forEach(function (item) {
           data.push(item)
           console.log(data)
@@ -389,9 +406,11 @@
       })
   }
   function test(title) {
-    var product_template = $('#product_template').html();
-    var html = ejs.render(product_template, { product: title });
-    $('#product').html(html);
+    var allProduct_template = $('#allProduct_template').html();
+    var html = ejs.render(allProduct_template, { allProduct: title });
+    $('#allProduct').html(html);
+
+
   }
 
   var dataCart = [];
